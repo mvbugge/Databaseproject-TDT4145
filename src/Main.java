@@ -114,7 +114,6 @@ public class Main {
 
                     System.out.println("Oppgave utført.\n");
                     break;
-
 /*
                 case "registrer øvelse i økt":
                     String okter = SelectQueries.getOkter();
@@ -135,10 +134,8 @@ public class Main {
                         InputQueries.RegistrerOvelseIOkt(ovelseID, oktID);
                         System.out.println("Lagt til...\n");
                     }
-
                     System.out.println("Oppgave utført.\n");
                     break;
-
 */
                 case "vis øvelsesgruppe":
 //                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
@@ -193,7 +190,6 @@ public class Main {
             }     
         }
     }
-
     public static String getInput(String something) {
         System.out.println(something);
 

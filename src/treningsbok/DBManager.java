@@ -9,17 +9,16 @@ public class DBManager {
 	
     private static Connection conn;
     private static Properties p;
+
     public DBManager(Properties p){
         this.p = p;
-    }
-    public void DBConn () {
-    	connect();
+        connect();
     }
     
     public void connect() {
     	try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/t1?autoReconnect=true&useSSL=false",p);
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/treningsbok?autoReconnect=true&useSSL=false",p);
         } catch (Exception e)
     	{
         	e.printStackTrace();

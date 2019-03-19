@@ -2,30 +2,27 @@ package treningsbok;
 
 import java.sql.*;
 import java.util.List;
-import java.util.Properties;
+import java.util.ArrayList;
 
 public class DBManager {
 	
     private static Connection conn;
     
     public DBConn () {
+    	connect();
     }
     
     public void connect() {
     	try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            // Properties for user and password. Here the user and password are both 'paulr'
-            Properties p = new Properties();
-            p.put("user", "myuser");
-            p.put("password", "mypassword");
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/avtalebok?autoReconnect=true&useSSL=false",p);
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/avtalebok?autoReconnect=true&useSSL=false","myuser", "mypassword");
         } catch (Exception e)
     	{
+        	e.printStackTrace();
             throw new RuntimeException("Unable to connect", e);
     	}
     }
     
-
     public List<String> requestDB(String sqlQuery) {
     	try {
             Statement stmt = conn.createStatement();
@@ -39,8 +36,9 @@ public class DBManager {
             while (rs.next()) {
             	String row = "";
             	for(int i = 1; i<=comlumns; i++) {
-            		row = row + rs.getString(i);
+            		row = row + rsmd.getColumnName(i) + ": "rs.getString(i) "  ";
             	}
+            	row = row + "\n";
             	array.add(row);
             }
             return array;
@@ -50,6 +48,7 @@ public class DBManager {
         }
         
     }
+    
     public void sendDB(String sqlQuery) {
     	try {
             Statement stmt = conn.createStatement();

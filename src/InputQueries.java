@@ -7,13 +7,13 @@ public class InputQueries {
 		//TODO: Pass to DB
 	}
 	public static void RegistrerFriovelse(String navn, String beskrivelse) {
-		String query = "insert into ovelse (OvelseID, Navn) values("
+		String query = "insert into friovelse (OvelseID, Navn) values("
 				+ "NULL, '" + navn + "', '" + beskrivelse + "');";
 		//TODO: Pass to DB
 	}
-	public static void RegistrerApparatovelse(String navn, String kilo, String sett, String apparatID) {
-		String query = "insert into ovelse (OvelseID, Navn, AntallKilo, AntallSett, ApparatID)"
-				+ " values(" + "NULL, '" + navn + "', '" + kilo + "', '" + sett + "', '"
+	public static void RegistrerApparatovelse(String navn, String beskrivelse, String kilo, String sett, String apparatID) {
+		String query = "insert into apparatovelse (OvelseID, Navn, Beskrivelse, AntallKilo, AntallSett, ApparatID)"
+				+ " values(" + "NULL, '" + navn + "', '" + beskrivelse + "', '" + kilo + "', '" + sett + "', '"
 				+ apparatID + "'');";
 		//TODO: Pass to DB
 	}

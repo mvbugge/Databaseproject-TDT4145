@@ -43,4 +43,9 @@ public class SelectQueries {
 		String query = "select * from okt";
 		return(DBManager.requestDB(query));
 	}
+
+	public static List<String> getGrupper(){
+		String query = "select * from ovelsesgruppe;";
+		return(DBManager.requestDB(query));
+	}
 } 

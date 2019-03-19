@@ -1,9 +1,9 @@
 package main;
 
-public class RegistrerQuery {
+public class InputQueries {
 	public static void RegistrerApparat(String navn, String beskrivelse) {
 		String query = "insert into apparat (ApparatID, Navn, Beskrivelse) values("
-				+ "NULL, " + navn + ", " + ", " + beskrivelse + ");";
+				+ "NULL, " + navn + ", " + beskrivelse + ");";
 		//TODO: Pass to DB
 	}
 	public static void RegistrerFriovelse(String navn, String Beskrivelse) {

@@ -145,13 +145,15 @@ public class Main {
 //                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
 
                 	String gruppe = getInput("Hvilken gruppe vil du vise? ");
-                	SelectQueries.getOvelserIGruppe(gruppe);
+                	String ovelser = SelectQueries.getOvelserIGruppe(gruppe);
+                    System.out.println(ovelser);
                     //DENNE MÅ LAGES
                 	break;
 
                 case "vis økter":
                 	int antall = getInput("Hvor mange? ");
-                    SelectQueries.getSisteOkter(antall);
+                    String okter = SelectQueries.getSisteOkter(antall);
+                    System.out.println(okter);
                     //DENNE MÅ LAGES
                 	break;
 

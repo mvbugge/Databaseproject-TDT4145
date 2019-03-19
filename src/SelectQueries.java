@@ -37,5 +37,20 @@ public class SelectQueries {
 	public static String getOktID(String dato, String tidspunkt){
 		String query = "select OktID from okt where dato='" + dato + "' and tidspunkt='" + tidspunkt + "';"
 		List<String> ids = DBManager.requestDB(query);
+		return(ids.getIndex(0));
 	}
+
+	public static String getOvelserIGruppe(String gruppe);
+	//DO SOMETHING
+
+	public static String getSisteOkter(String antall);
+	//DO SOMETHING
+
+	public static String getResultatLogg(String startDato, String sluttDato);
+	//DO SOMETHING
+
+	public static String getUprovde();
+	//DO SOMETHING
+
+
 } 

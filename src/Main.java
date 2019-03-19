@@ -31,15 +31,41 @@ public class Main {
                 	String navn = getInput("Hva heter det nye apparatet? ");
                 	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ")
 
-                    InputQueries.RegistrerApparat();
+                    InputQueries.RegistrerApparat(navn, beskrivelse);
+                    System.out.println("Oppgave utført.\n");
                     break;
                 
                 case "registrer øvelse":
-                    InputQueries.RegistrerOvelse();
+                    String navn = getInput("Hva heter den nye øvelsen? ");
+                    String beskrivelse = getInput("Gi en beskrivelse av den nye øvelsen: ");
+                    String type = getInput("Er det en friøvelse eller en apparatøvelse?\n"+
+                                           "Skriv 'f' for friøvelse eller 'a' for apparatøvelse: ").toLowerCase();
+                    if (type == 'f'){
+                        InputQueries.RegistrerFriovelse(navn, beskrivelse);
+                        System.out.println("Oppgave utført.\n");
+
+                    }
+                    else{
+                        int kilo = getInput("Hvor mange kilo brukes i øvelsen?: ");
+                        int sett = getInput("Hvor mange kilo brukes i øvelsen?: ");
+                        String apparat = getInput("Hvilket eksisterende apparat brukes til øvelsen?: ").toLowerCase();
+                        int apparatID = SelectQueries.getApparatID(apparat);
+
+                        InputQueries.RegistrerFriovelse(navn, beskrivelse);
+                        System.out.println("Oppgave utført.\n");
+                    }
+                    
                 	break;
 
                 case "registrer økt":
-                    InputQueries.RegistrerOkt();
+                    String dato = getInput("Oppgi dato på formen YYYY-MM-DD, f. eks. '2019-03-21': ");
+                    String tidspunkt = getInput("Oppgi starttidspunkt på formen hh:mm:ss, f. eks. '23:59:59': ");
+                    String varighet = getInput("Oppgi varighet på økten på formen hh:mm:ss, f. eks. '01:30:00': ");
+                    int prestasjon = getInput("Oppgi din prestasjon under økten, et heltall mellom 1 og 10: ");
+                    int form = getInput("Oppgi din form under økten, et heltall mellom 1 og 10: ");
+
+                    InputQueries.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form); 
+                    System.out.println("Oppgave utført.\n");
                 	break;
 
                 case "registrer øvelsesgruppe":
@@ -55,7 +81,7 @@ public class Main {
                 	break;
 
                 case "vis økter":
-                	Int antall = getInput("Hvor mange? ");
+                	int antall = getInput("Hvor mange? ");
                     InputQueries.VisOkter(antall);
                 	break;
 
@@ -81,7 +107,7 @@ public class Main {
                         "'vis økter'               Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
                         "'vis resultatlogg'        Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
                         "'vis uprøvde'             Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n"
-                        )
+                        );
 
                     break;
             }

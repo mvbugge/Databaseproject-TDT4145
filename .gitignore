@@ -1,0 +1,6 @@
+bin/
+src/bin/*
+
+.classpath
+.project
+/src/treningsbok

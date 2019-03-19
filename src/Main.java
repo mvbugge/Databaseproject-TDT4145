@@ -46,10 +46,10 @@ public class Main {
 
                     }
                     else{
-                        int kilo = getInput("Hvor mange kilo brukes i øvelsen?: ");
-                        int sett = getInput("Hvor mange kilo brukes i øvelsen?: ");
+                        String kilo = getInput("Hvor mange kilo brukes i øvelsen?: ");
+                        String sett = getInput("Hvor mange kilo brukes i øvelsen?: ");
                         String apparat = getInput("Hvilket eksisterende apparat brukes til øvelsen?: ").toLowerCase();
-                        int apparatID = SelectQueries.getApparatID(apparat);
+                        String apparatID = SelectQueries.getApparatID(apparat);
 
                         InputQueries.RegistrerFriovelse(navn, beskrivelse);
                         System.out.println("Oppgave utført.\n");
@@ -61,8 +61,12 @@ public class Main {
                     String dato = getInput("Oppgi dato på formen YYYY-MM-DD, f. eks. '2019-03-21': ");
                     String tidspunkt = getInput("Oppgi starttidspunkt på formen hh:mm:ss, f. eks. '23:59:59': ");
                     String varighet = getInput("Oppgi varighet på økten på formen hh:mm:ss, f. eks. '01:30:00': ");
-                    int prestasjon = getInput("Oppgi din prestasjon under økten, et heltall mellom 1 og 10: ");
-                    int form = getInput("Oppgi din form under økten, et heltall mellom 1 og 10: ");
+                    String prestasjon = getInput("Oppgi din prestasjon under økten, et heltall mellom 1 og 10: ");
+                    String form = getInput("Oppgi din form under økten, et heltall mellom 1 og 10: ");
+
+                    //while (1){
+
+                    //}
 
                     InputQueries.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form); 
                     System.out.println("Oppgave utført.\n");

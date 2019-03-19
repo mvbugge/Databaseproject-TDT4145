@@ -24,13 +24,18 @@ public class SelectQueries {
 	}
 
 	public static String getApparatID(String navn){
-		String query = "select ApparatID from apparat where navn = '" + navn + "';";
+		String query = "select ApparatID from apparat where navn='" + navn + "';";
 		List<String> ids = DBManager.requestDB(query);
 		return(ids.getIndex(0));
 	}
 	public static String getOvelseID(String navn){
-		String query = "select OvelseID from ovelse where navn = '" + navn + "';";
+		String query = "select OvelseID from ovelse where navn='" + navn + "';";
 		List<String> ids = DBManager.requestDB(query);
 		return(ids.getIndex(0));
+	}
+
+	public static String getOktID(String dato, String tidspunkt){
+		String query = "select OktID from okt where dato='" + dato + "' and tidspunkt='" + tidspunkt + "';"
+		List<String> ids = DBManager.requestDB(query);
 	}
 } 

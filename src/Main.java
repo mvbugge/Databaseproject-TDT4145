@@ -131,20 +131,29 @@ public class Main {
 
                 	String gruppe = getInput("Hvilken gruppe vil du vise? ");
                 	SelectQueries.getOvelserIGruppe(gruppe);
+                    //DENNE MÅ LAGES
                 	break;
 
                 case "vis økter":
                 	int antall = getInput("Hvor mange? ");
-                    InputQueries.VisOkter(antall);
+                    SelectQueries.getSisteOkter(antall);
+                    //DENNE MÅ LAGES
                 	break;
 
                 case "vis resultatlogg":
-                    InputQueries.VisResultatLogg();
-                	break;
+                    String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
+                    String sluttDato = getInput("Oppgi intervallets sluttdato på formen YYYY-MM-DD: ");
+
+                    String resultat = SelectQueries.getResultatLogg(startDato, sluttDato);
+                    System.out.println("Følgende resultater er funnet:\n");
+                    System.out.println(resultat);
+                   	break;
 
 
                 case "vis uprøvde":
-                	InputQueries.VisUrpovde();
+                    String ovelser = SelectQueries.getUprovde();
+                    System.out.println("Følgende øvelser er uprøvde:\n");
+                    System.out.println(ovelser);
                 	break;
 
 

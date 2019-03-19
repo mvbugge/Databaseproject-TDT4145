@@ -5,19 +5,15 @@ public class Main {
 
 	public static void main(String[] args) {
 
-
-
-        boolean exitFlag = false;
-        String input; 
-        String helloMsg = 	"~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"+
-        					"Velkommen til din treningsdagbok!\n"+
-        					"~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-
-        String inputMsg = "Hvilken operasjon ønsker du å utføre? Skriv [what] for oversikt over mulige operasjoner, eller [q] for å avslutte.\n>>";
-
+        String helloMsg =   "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"+
+                            "Velkommen til din treningsdagbok!\n"+
+                            "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 
         System.out.println(helloMsg);
 
+        String input; 
+        String inputMsg = "Hvilken operasjon ønsker du å utføre? Skriv [what] for oversikt over mulige operasjoner, eller [q] for å avslutte.\n>>";
+        boolean exitFlag = false;
         while (!exitFlag) {
 
             input = getInput(inputMsg).toLowerCase();
@@ -28,7 +24,6 @@ public class Main {
                     exitFlag = true;
                     break;
 
-
                 case "registrer apparat":
                 	String navn = getInput("Hva heter det nye apparatet? ").toLowerCase();
                 	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ");
@@ -37,7 +32,6 @@ public class Main {
                     System.out.println("Oppgave utført.\n");
                     break;
 
-                
                 case "registrer øvelse":
                     String navn = getInput("Hva heter den nye øvelsen? ").toLowerCase();
                     String beskrivelse = getInput("Gi en beskrivelse av den nye øvelsen: ");
@@ -59,7 +53,6 @@ public class Main {
                         System.out.println("Oppgave utført.\n");
                     }
                 	break;
-
 
                 case "registrer økt":
                     String dato = getInput("Oppgi dato på formen YYYY-MM-DD, f. eks. '2019-03-21': ");
@@ -92,13 +85,11 @@ public class Main {
                     System.out.println("Oppgave utført.\n");
                 	break;
 
-
                 case "registrer øvelsesgruppe":
                     String navn = getInput("Hva heter den nye øvelsesgruppen?: ");
                 	InputQueries.RegistrerGruppe(navn);
                     System.out.println("Oppgave utført.\n");
                     break;
-
 
                 case "registrer øvelse i gruppe":
 
@@ -116,7 +107,6 @@ public class Main {
                         if ((ovelse == '') || (ovelse == ' ')):
                             break;
 
-
                         ovelseID = SelectQueries.getOvelseID(ovelse);
                         InputQueries.RegistrerInngarI(ovelseID, gruppeID);
                         System.out.println("Lagt til...\n");
@@ -124,7 +114,6 @@ public class Main {
 
                     System.out.println("Oppgave utført.\n");
                     break;
-
 
 /*
                 case "registrer øvelse i økt":
@@ -160,13 +149,11 @@ public class Main {
                     //DENNE MÅ LAGES
                 	break;
 
-
                 case "vis økter":
                 	int antall = getInput("Hvor mange? ");
                     SelectQueries.getSisteOkter(antall);
                     //DENNE MÅ LAGES
                 	break;
-
 
                 case "vis resultatlogg":
                     String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
@@ -177,13 +164,11 @@ public class Main {
                     System.out.println(resultat);
                    	break;
 
-
                 case "vis uprøvde":
                     String ovelser = SelectQueries.getUprovde();
                     System.out.println("Følgende øvelser er uprøvde:\n");
                     System.out.println(ovelser);
                 	break;
-
 
                 case "what":
                     System.out.println(
@@ -222,4 +207,3 @@ public class Main {
         return input;
     }
 }
-

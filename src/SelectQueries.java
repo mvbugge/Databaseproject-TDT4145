@@ -38,4 +38,9 @@ public class SelectQueries {
 		String query = "select OktID from okt where dato='" + dato + "' and tidspunkt='" + tidspunkt + "';"
 		List<String> ids = DBManager.requestDB(query);
 	}
+
+	public static List<String> getOkter() {
+		String query = "select * from okt";
+		return(DBManager.requestDB(query));
+	}
 } 

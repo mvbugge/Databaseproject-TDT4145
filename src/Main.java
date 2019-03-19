@@ -1,4 +1,5 @@
 package treningsbok;
+import java.util.Scanner;
 
 public class Main {
 
@@ -64,17 +65,36 @@ public class Main {
                     String prestasjon = getInput("Oppgi din prestasjon under økten, et heltall mellom 1 og 10: ");
                     String form = getInput("Oppgi din form under økten, et heltall mellom 1 og 10: ");
 
-                    //while (1){
-
-                    //}
-
-                    InputQueries.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form); 
+                    InputQueries.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form);            
                     System.out.println("Oppgave utført.\n");
                 	break;
 
                 case "registrer øvelsesgruppe":
                 	InputQueries.RegistrerOvelsesgruppe();
                 	break;
+
+                case "registrer øvelse i økt":
+                    String okter = SelectQueries.getOkter();
+                    System.out.println("Følgende økter er registrert i databasen: ");
+                    System.out.println(okter);
+                    String oktID = getInput("Oppgi øktID til økten du vil behandle: ");
+
+                    String ovelse;
+                    Sring ovelseID;
+
+                    while (1){
+
+                        ovelse = getInput("Oppgi en øvelse fra databasen som ble utført, eller trykk <enter> for å gå videre: ");
+                        if ((ovelse == '') || (ovelse == ' ')):
+                            break;
+
+                        ovelseID = SelectQueries.getOvelseID(ovelse);
+                        RegistrerOvelseIOkt(ovelseID, oktID);
+                        System.out.println("Lagt til...\n");
+                    }
+
+                    System.out.println("Oppgave utført.\n");
+                    break;
 
                 case "vis øvelsesgruppe":
 //                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
@@ -107,6 +127,7 @@ public class Main {
                         "'registrer øvelse'        Lar deg registrere ny øvelse med tilhørende data\n" +
                         "'registrer økt'           Lar deg registrere ny økt med tilhørende data\n" +
                         "'registrer øvelsesgruppe' Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
+                        "'registrer øvelse i økt'  Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
                         "'vis øvelsesgruppe'       Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
                         "'vis økter'               Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
                         "'vis resultatlogg'        Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +

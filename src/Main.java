@@ -68,7 +68,27 @@ public class Main {
                     String prestasjon = getInput("Oppgi din prestasjon under økten, et heltall mellom 1 og 10: ");
                     String form = getInput("Oppgi din form under økten, et heltall mellom 1 og 10: ");
 
-                    InputQueries.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form);            
+                    InputQueries.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form);
+
+                    //Legg til øvelser i økt
+                    String ovelse;
+                    Sring ovelseID;
+                    String oktID = SelectQueries.getOktID(dato, tidspunkt);
+
+                    while (1){
+
+                        ovelse = getInput("Oppgi en eksisterende øvelse fra databasen for å knytte den til økten, eller trykk <enter> for å gå videre: ").toLowerCase();
+                        if ((ovelse == '') || (ovelse == ' ')):
+                            break;
+
+                        ovelseID = SelectQueries.getOvelseID(ovelse);
+                        InputQueries.RegistrerOvelseIOkt(ovelseID, oktID);
+                        System.out.println("Lagt til...\n");
+                    }
+                    String notat = getInput("Legg til notat til økten eller trykk <enter>: ");
+                    if (notat != ''){
+                        InputQueries.RegistrerNotat(oktID, notat);
+                    }
                     System.out.println("Oppgave utført.\n");
                 	break;
 
@@ -106,7 +126,7 @@ public class Main {
                     break;
 
 
-
+/*
                 case "registrer øvelse i økt":
                     String okter = SelectQueries.getOkter();
                     System.out.println("Følgende økter er registrert i databasen: ");
@@ -130,7 +150,7 @@ public class Main {
                     System.out.println("Oppgave utført.\n");
                     break;
 
-
+*/
                 case "vis øvelsesgruppe":
 //                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
 //                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
@@ -174,7 +194,7 @@ public class Main {
                         "'registrer økt'             Lar deg registrere ny økt med tilhørende data\n" +
                         "'registrer øvelsesgruppe'   Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
                         "'registrer øvelse i gruppe' Lar deg knytte eksisterende øvelser til en eksisterende øvelsesgruppe"+
-                        "'registrer øvelse i økt'    Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
+ //                     "'registrer øvelse i økt'    Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
                         "'vis øvelsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
                         "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
                         "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +

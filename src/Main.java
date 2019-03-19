@@ -28,6 +28,7 @@ public class Main {
                     exitFlag = true;
                     break;
 
+
                 case "registrer apparat":
                 	String navn = getInput("Hva heter det nye apparatet? ").toLowerCase();
                 	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ");
@@ -35,6 +36,7 @@ public class Main {
                     InputQueries.RegistrerApparat(navn, beskrivelse);
                     System.out.println("Oppgave utført.\n");
                     break;
+
                 
                 case "registrer øvelse":
                     String navn = getInput("Hva heter den nye øvelsen? ").toLowerCase();
@@ -56,8 +58,8 @@ public class Main {
                         InputQueries.RegistrerApparatovelse(navn, beskrivelse, kilo, sett, apparatID);
                         System.out.println("Oppgave utført.\n");
                     }
-                    
                 	break;
+
 
                 case "registrer økt":
                     String dato = getInput("Oppgi dato på formen YYYY-MM-DD, f. eks. '2019-03-21': ");
@@ -70,11 +72,13 @@ public class Main {
                     System.out.println("Oppgave utført.\n");
                 	break;
 
+
                 case "registrer øvelsesgruppe":
                     String navn = getInput("Hva heter den nye øvelsesgruppen?: ");
                 	InputQueries.RegistrerGruppe(navn);
                     System.out.println("Oppgave utført.\n");
                     break;
+
 
                 case "registrer øvelse i gruppe":
 
@@ -91,6 +95,7 @@ public class Main {
                         ovelse = getInput("Oppgi en øvelse fra databasen som skal knyttes til gruppen, eller trykk <enter> for å gå videre: ").toLowerCase();
                         if ((ovelse == '') || (ovelse == ' ')):
                             break;
+
 
                         ovelseID = SelectQueries.getOvelseID(ovelse);
                         InputQueries.RegistrerInngarI(ovelseID, gruppeID);
@@ -125,6 +130,7 @@ public class Main {
                     System.out.println("Oppgave utført.\n");
                     break;
 
+
                 case "vis øvelsesgruppe":
 //                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
 //                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
@@ -134,11 +140,13 @@ public class Main {
                     //DENNE MÅ LAGES
                 	break;
 
+
                 case "vis økter":
                 	int antall = getInput("Hvor mange? ");
                     SelectQueries.getSisteOkter(antall);
                     //DENNE MÅ LAGES
                 	break;
+
 
                 case "vis resultatlogg":
                     String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
@@ -171,11 +179,11 @@ public class Main {
                         "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
                         "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
                         "'vis uprøvde'               Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n"
+                        "'q'                         Avslutt"
                         );
 
                     break;
-            }
-          
+            }     
         }
     }
 

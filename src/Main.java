@@ -1,4 +1,4 @@
-package main;
+package treningsbok;
 
 public class Main {
 

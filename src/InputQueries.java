@@ -34,8 +34,8 @@ public class InputQueries {
 		dbmanager.sendDB(query);
 	}
 	public static void RegistrerNotat(String beskrivelse, String oktID) {
-		String query = "insert into notat (NotatID, Beskrivelse, OktID) values(" + "NULL, '" 
-				+ beskrivelse + "', '" + oktID + "');";
+		String query = "insert into notat (OktID, Treningsformal) values(" 
+				+ oktID + ", '" + beskrivelse + "');";
 		dbmanager.sendDB(query);
 	}
 	public static void RegistrerGruppe(String navn) {

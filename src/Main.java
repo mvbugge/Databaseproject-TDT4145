@@ -29,7 +29,7 @@ public class Main {
                     break;
 
                 case "registrer apparat":
-                	String navn = getInput("Hva heter det nye apparatet? ");
+                	String navn = getInput("Hva heter det nye apparatet? ").toLowerCase();
                 	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ");
 
                     InputQueries.RegistrerApparat(navn, beskrivelse);
@@ -37,8 +37,9 @@ public class Main {
                     break;
                 
                 case "registrer øvelse":
-                    String navn = getInput("Hva heter den nye øvelsen? ");
+                    String navn = getInput("Hva heter den nye øvelsen? ").toLowerCase();
                     String beskrivelse = getInput("Gi en beskrivelse av den nye øvelsen: ");
+
                     String type = getInput("Er det en friøvelse eller en apparatøvelse?\n"+
                                            "Skriv 'f' for friøvelse eller 'a' for apparatøvelse: ").toLowerCase();
                     if (type == 'f'){
@@ -48,11 +49,11 @@ public class Main {
                     }
                     else{
                         String kilo = getInput("Hvor mange kilo brukes i øvelsen?: ");
-                        String sett = getInput("Hvor mange kilo brukes i øvelsen?: ");
+                        String sett = getInput("Hvor mange sett gjøres i øvelsen?: ");
                         String apparat = getInput("Hvilket eksisterende apparat brukes til øvelsen?: ").toLowerCase();
                         String apparatID = SelectQueries.getApparatID(apparat);
 
-                        InputQueries.RegistrerFriovelse(navn, beskrivelse);
+                        InputQueries.RegistrerApparatovelse(navn, beskrivelse, kilo, sett, apparatID);
                         System.out.println("Oppgave utført.\n");
                     }
                     
@@ -70,8 +71,36 @@ public class Main {
                 	break;
 
                 case "registrer øvelsesgruppe":
-                	InputQueries.RegistrerOvelsesgruppe();
-                	break;
+                    String navn = getInput("Hva heter den nye øvelsesgruppen?: ");
+                	InputQueries.RegistrerGruppe(navn);
+                    System.out.println("Oppgave utført.\n");
+                    break;
+
+                case "registrer øvelse i gruppe":
+
+                    String grupper = SelectQueries.getGrupper();
+                    System.out.println("Følgende øvelsesgrupper er registrert i databasen: ");
+                    System.out.println(grupper);
+                    String gruppeID = getInput("Oppgi gruppeID til gruppen du vil behandle: ");
+
+                    String ovelse;
+                    Sring ovelseID;
+
+                    while (1){
+
+                        ovelse = getInput("Oppgi en øvelse fra databasen som skal knyttes til gruppen, eller trykk <enter> for å gå videre: ").toLowerCase();
+                        if ((ovelse == '') || (ovelse == ' ')):
+                            break;
+
+                        ovelseID = SelectQueries.getOvelseID(ovelse);
+                        InputQueries.RegistrerInngarI(ovelseID, gruppeID);
+                        System.out.println("Lagt til...\n");
+                    }
+
+                    System.out.println("Oppgave utført.\n");
+                    break;
+
+
 
                 case "registrer øvelse i økt":
                     String okter = SelectQueries.getOkter();
@@ -84,12 +113,12 @@ public class Main {
 
                     while (1){
 
-                        ovelse = getInput("Oppgi en øvelse fra databasen som ble utført, eller trykk <enter> for å gå videre: ");
+                        ovelse = getInput("Oppgi en øvelse fra databasen som ble utført, eller trykk <enter> for å gå videre: ").toLowerCase();
                         if ((ovelse == '') || (ovelse == ' ')):
                             break;
 
                         ovelseID = SelectQueries.getOvelseID(ovelse);
-                        RegistrerOvelseIOkt(ovelseID, oktID);
+                        InputQueries.RegistrerOvelseIOkt(ovelseID, oktID);
                         System.out.println("Lagt til...\n");
                     }
 
@@ -101,7 +130,7 @@ public class Main {
 //                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
 
                 	String gruppe = getInput("Hvilken gruppe vil du vise? ");
-                	InputQueries.VisOvelsesgruppe(gruppe);
+                	SelectQueries.getOvelserIGruppe(gruppe);
                 	break;
 
                 case "vis økter":
@@ -123,15 +152,16 @@ public class Main {
                     System.out.println(
                     	"Følgende gyldige input finnes (oppgi kommando uten 'fnutter'):\n" +
 
-                        "'registrer apparat'       Lar deg registrere nytt apparat med tilhørende data\n" +
-                        "'registrer øvelse'        Lar deg registrere ny øvelse med tilhørende data\n" +
-                        "'registrer økt'           Lar deg registrere ny økt med tilhørende data\n" +
-                        "'registrer øvelsesgruppe' Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
-                        "'registrer øvelse i økt'  Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
-                        "'vis øvelsesgruppe'       Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
-                        "'vis økter'               Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
-                        "'vis resultatlogg'        Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
-                        "'vis uprøvde'             Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n"
+                        "'registrer apparat'         Lar deg registrere nytt apparat med tilhørende data\n" +
+                        "'registrer øvelse'          Lar deg registrere ny øvelse med tilhørende data\n" +
+                        "'registrer økt'             Lar deg registrere ny økt med tilhørende data\n" +
+                        "'registrer øvelsesgruppe'   Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
+                        "'registrer øvelse i gruppe' Lar deg knytte eksisterende øvelser til en eksisterende øvelsesgruppe"+
+                        "'registrer øvelse i økt'    Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
+                        "'vis øvelsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
+                        "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
+                        "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
+                        "'vis uprøvde'               Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n"
                         );
 
                     break;

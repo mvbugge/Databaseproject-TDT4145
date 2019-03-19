@@ -33,7 +33,7 @@ public class InputQueries {
 				prestasjon + "', '" + form + "');";
 		dbmanager.sendDB(query);
 	}
-	public static void RegistrerNotat(String beskrivelse, String oktID) {
+	public static void RegistrerNotat(String oktID, String beskrivelse) {
 		String query = "insert into notat (OktID, Treningsformal) values(" 
 				+ oktID + ", '" + beskrivelse + "');";
 		dbmanager.sendDB(query);
@@ -44,11 +44,11 @@ public class InputQueries {
 		dbmanager.sendDB(query);
 	}
 	public static void RegistrerOvelseIOkt(String ovelseID, String oktID) {
-		String query = "insert into ovelseiokt values('" + ovelseID + "', '" + oktID + "');";
+		String query = "insert into ovelseiokt values(" + ovelseID + ", " + oktID + ");";
 		dbmanager.sendDB(query);
 	}
 	public static void RegistrerInngarI(String ovelseID, String gruppeID) {
-		String query = "insert into inngari values('" + ovelseID + "', '" + gruppeID + "');";
+		String query = "insert into inngari values(" + ovelseID + ", " + gruppeID + ");";
 		dbmanager.sendDB(query);
 	}
 }

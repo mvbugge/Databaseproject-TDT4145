@@ -23,10 +23,14 @@ public class SelectQueries {
 		return(DBManager.requestDB(query));
 	}
 
-	public static int getApparatID(String navn){
-		String query = "select ApparatID from apparat where navn = '" + navn + "';"
+	public static String getApparatID(String navn){
+		String query = "select ApparatID from apparat where navn = '" + navn + "';";
 		List<String> ids = DBManager.requestDB(query);
 		return(ids.getIndex(0));
 	}
-
+	public static String getOvelseID(String navn){
+		String query = "select OvelseID from ovelse where navn = '" + navn + "';";
+		List<String> ids = DBManager.requestDB(query);
+		return(ids.getIndex(0));
+	}
 } 

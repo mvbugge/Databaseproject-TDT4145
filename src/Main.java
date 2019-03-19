@@ -1,5 +1,4 @@
 package treningsbok;
-import java.util.Scanner;
 
 import java.util.Scanner;
 
@@ -73,7 +72,7 @@ public class Main {
                     while (1){
 
                         ovelse = getInput("Oppgi en eksisterende øvelse fra databasen for å knytte den til økten, eller trykk <enter> for å gå videre: ").toLowerCase();
-                        if ((ovelse == '') || (ovelse == ' ')):
+                        if ((ovelse == "") || (ovelse == " "))
                             break;
 
                         ovelseID = SelectQueries.getOvelseID(ovelse);
@@ -81,7 +80,7 @@ public class Main {
                         System.out.println("Lagt til...\n");
                     }
                     String notat = getInput("Legg til notat til økten eller trykk <enter>: ");
-                    if (notat != ''){
+                    if (notat != ""){
                         InputQueries.RegistrerNotat(oktID, notat);
                     }
                     System.out.println("Oppgave utført.\n");
@@ -106,7 +105,7 @@ public class Main {
                     while (1){
 
                         ovelse = getInput("Oppgi en øvelse fra databasen som skal knyttes til gruppen, eller trykk <enter> for å gå videre: ").toLowerCase();
-                        if ((ovelse == '') || (ovelse == ' ')):
+                        if ((ovelse == "") || (ovelse == " "))
                             break;
 
                         ovelseID = SelectQueries.getOvelseID(ovelse);
@@ -184,7 +183,7 @@ public class Main {
                         "'vis øvelsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
                         "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
                         "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
-                        "'vis uprøvde'               Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n"
+                        "'vis uprøvde'               Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n" +
                         "'q'                         Avslutt"
                         );
 

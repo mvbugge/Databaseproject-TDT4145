@@ -11,20 +11,20 @@ public class InputQueries {
 				+ "NULL, " + navn + ", " + Beskrivelse + ");";
 		//TODO: Pass to DB
 	}
-	public static void RegistrerApparatovelse(String navn, int kilo, int sett, int apparatID) {
+	public static void RegistrerApparatovelse(String navn, String kilo, String sett, String apparatID) {
 		String query = "insert into ovelse (OvelseID, Navn, AntallKilo, AntallSett, ApparatID)"
 				+ " values(" + "NULL, " + navn + ", " + kilo + ", " + sett + ", "
 				+ apparatID + ");";
 		//TODO: Pass to DB
 	}
 	public static void RegistrerOkt(String Dato, String Tidspunkt, String Varighet,
-			int Prestasjon, int Form) {
+			String Prestasjon, String Form) {
 		String query = "insert into okt (OktID, Dato, Tidspunkt, Varighet, Prestasjon, Form) "
 				+ "values(" + "NULL, " + Dato + ", " + Tidspunkt + ", " + Varighet + ", " +
 				Prestasjon + ", " + Form + ");";
 		//TODO: Pass to DB
 	}
-	public static void RegistrerNotat(String beskrivelse, int oktID) {
+	public static void RegistrerNotat(String beskrivelse, String oktID) {
 		String query = "insert into notat (NotatID, Beskrivelse, OktID) values(" + "NULL, " 
 				+ beskrivelse + ", " + oktID + ");";
 		//TODO: Pass to DB
@@ -34,11 +34,11 @@ public class InputQueries {
 				+ "NULL, " + navn + ");";
 		//TODO: Pass to DB
 	}
-	public static void RegistrerOvelseIOkt(int ovelseID, int oktID) {
+	public static void RegistrerOvelseIOkt(String ovelseID, String oktID) {
 		String query = "insert into ovelseiokt values(" + ovelseID + ", " + oktID + ");";
 		//TODO: Pass to DB
 	}
-	public static void RegistrerInngarI(int ovelseID, int gruppeID) {
+	public static void RegistrerInngarI(String ovelseID, String gruppeID) {
 		String query = "insert into inngari values(" + ovelseID + ", " + gruppeID + ");";
 		//TODO: Pass to DB
 	}

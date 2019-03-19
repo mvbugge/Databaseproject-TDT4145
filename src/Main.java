@@ -12,7 +12,7 @@ public class Main {
         					"Velkommen til din treningsdagbok!\n"+
         					"~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 
-        String inputMsg = "Hvilken operasjon ønsker du å utføre? Skriv [what] for oversikt over mulige operasjoner, eller [q] for å avslutte.\n>>"
+        String inputMsg = "Hvilken operasjon ønsker du å utføre? Skriv [what] for oversikt over mulige operasjoner, eller [q] for å avslutte.\n>>";
 
 
         System.out.println(helloMsg);
@@ -29,7 +29,7 @@ public class Main {
 
                 case "registrer apparat":
                 	String navn = getInput("Hva heter det nye apparatet? ");
-                	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ")
+                	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ");
 
                     InputQueries.RegistrerApparat(navn, beskrivelse);
                     System.out.println("Oppgave utført.\n");

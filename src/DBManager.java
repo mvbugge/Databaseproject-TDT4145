@@ -8,14 +8,14 @@ public class DBManager {
 	
     private static Connection conn;
     
-    public DBConn () {
+    public DBManager () {
     	connect();
     }
     
     public void connect() {
     	try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/avtalebok?autoReconnect=true&useSSL=false","myuser", "mypassword");
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/treningsbok?autoReconnect=true&useSSL=false","root", "password");
         } catch (Exception e)
     	{
         	e.printStackTrace();
@@ -35,8 +35,8 @@ public class DBManager {
             
             while (rs.next()) {
             	String row = "";
-            	for(int i = 1; i<=comlumns; i++) {
-            		row = row + rsmd.getColumnName(i) + ": "rs.getString(i) "  ";
+            	for(int i = 1; i<=columns; i++) {
+            		row = row + rsmd.getColumnName(i) + ": " + rs.getString(i) + "  ";
             	}
             	row = row + "\n";
             	array.add(row);
@@ -61,7 +61,7 @@ public class DBManager {
     
     public static void close() {
     	try {
-    		connection.close();
+    		conn.close();
     	} catch (Exception e) {
     	    e.printStackTrace();
         }

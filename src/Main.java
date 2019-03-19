@@ -19,7 +19,7 @@ public class Main {
 
         while (!exitFlag) {
 
-            input = ConsoleManager.getInput(inputMsg).toLowerCase();
+            input = getInput(inputMsg).toLowerCase();
 
             switch (input){
 
@@ -28,41 +28,44 @@ public class Main {
                     break;
 
                 case "registrer apparat":
-                    ConsoleManager.RegistrerApparat();
+                	String navn = getInput("Hva heter det nye apparatet? ");
+                	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ")
+
+                    InputQueries.RegistrerApparat();
                     break;
                 
                 case "registrer øvelse":
-                    ConsoleManager.RegistrerOvelse();
+                    InputQueries.RegistrerOvelse();
                 	break;
 
                 case "registrer økt":
-                    ConsoleManager.RegistrerOkt();
+                    InputQueries.RegistrerOkt();
                 	break;
 
                 case "registrer øvelsesgruppe":
-                	ConsoleManager.RegistrerOvelsesgruppe();
+                	InputQueries.RegistrerOvelsesgruppe();
                 	break;
 
                 case "vis øvelsesgruppe":
-//                	String alleOvelsesGrupper = ConsoleManager.VisAlleOvelsesgrupper();
+//                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
 //                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
 
-                	String gruppe = ConsoleManager.getInput("Hvilken gruppe vil du vise? ");
-                	ConsoleManager.VisOvelsesgruppe(gruppe);
+                	String gruppe = getInput("Hvilken gruppe vil du vise? ");
+                	InputQueries.VisOvelsesgruppe(gruppe);
                 	break;
 
                 case "vis økter":
-                	Int antall = ConsoleManager.getInput("Hvor mange? ");
-                    ConsoleManager.VisOkter(antall);
+                	Int antall = getInput("Hvor mange? ");
+                    InputQueries.VisOkter(antall);
                 	break;
 
                 case "vis resultatlogg":
-                    ConsoleManager.VisResultatLogg();
+                    InputQueries.VisResultatLogg();
                 	break;
 
 
                 case "vis uprøvde":
-                	ConsoleManager.VisUrpovde();
+                	InputQueries.VisUrpovde();
                 	break;
 
 
@@ -82,13 +85,23 @@ public class Main {
 
                     break;
             }
-            /*
-            if(input.equals("slutt da") || input.equals("slutt")) {
-                finished = true;
-            } else if (input.equals("ny treningsøkt")){
-                ConsoleManager.makeTreningsøkt();
-            }
-            */
+          
         }
     }
+
+    public static String getInput(String something) {
+        System.out.println(something);
+
+        String input = "";
+
+        try {
+        Scanner scanner = new Scanner(System.in);
+        input = scanner.nextLine().toLowerCase();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return input;
+    }
 }
+

@@ -1,4 +1,4 @@
-package main;
+package treningsbok;
 
 public class InputQueries {
 	public static void RegistrerApparat(String navn, String beskrivelse) {

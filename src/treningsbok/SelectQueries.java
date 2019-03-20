@@ -47,6 +47,12 @@ public class SelectQueries {
 		String ids = dbmanager.requestID(query);
 		return(ids);
 	}
+	
+	public static String getGruppeID(String navn){
+		String query = "select GruppeID from ovelsesgruppe where navn='" + navn + "';";
+		String ids = dbmanager.requestID(query);
+		return(ids);
+	}
 
 	public static List<String> getOkter() {
 		String query = "select * from okt";
@@ -58,19 +64,23 @@ public class SelectQueries {
 		return(dbmanager.requestDB(query));
 	}
 
-	public static String getOvelserIGruppe(String gruppe){
-		return " ";
+	public static List<String> getOvelserIGruppe(String gruppeID){
+		String query = "select navn from (ovelse natural join inngari) where GruppeID = "+ gruppeID +";";
+		return(dbmanager.requestDB(query));
 	}
 
-	public static String getSisteOkter(String antall){
-		return " ";
+	public static List<String> getSisteOkter(String antall){
+		String query = "select * from ovelsesgruppe;";
+		return(dbmanager.requestDB(query));
 	}
 
-	public static String getResultatLogg(String startDato, String sluttDato){
-		return " ";
+	public static List<String> getResultatLogg(String startDato, String sluttDato){
+		String query = "select * from ovelsesgruppe;";
+		return(dbmanager.requestDB(query));
 	}
 
-	public static String getUprovde(){
-		return " ";
+	public static List<String> getUprovde(){
+		String query = "select * from ovelsesgruppe;";
+		return(dbmanager.requestDB(query));
 	}
 } 

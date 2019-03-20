@@ -113,9 +113,9 @@ public class Main {
                     while (true){
 
                         ovelse = getInput("Oppgi navn på en eksisterende øvelse i databasen for å knytte den til økten, eller trykk <enter> for å gå videre: ").toLowerCase();
-                        if (ovelse.isEmpty())
+                        if (ovelse.isEmpty()) {
                             break;
-
+                        }
                         ovelseID = selectQuery.getOvelseID(ovelse);
                         if (inputQuery.RegistrerOvelseIOkt(ovelseID, oktID)) {
                             System.out.println("Øvelse lagt til.\n");
@@ -132,68 +132,60 @@ public class Main {
                         };
                     }
                 	break;
-
+/*
+                case "registrer øvelse i økt":
+                    break;
+*/          	
                 case "registrer øvelsesgruppe":
                     navn = getInput("Hva heter den nye øvelsesgruppen?: ");
-                	inputQuery.RegistrerGruppe(navn);
-                    System.out.println("Oppgave utført.\n");
+                    if (inputQuery.RegistrerGruppe(navn)) {
+                        System.out.println("Øvelsegruppe ble registrert.\n");
+                    } else {
+                        System.out.println("Øvelsegruppe ble ikke registrert.\n");
+                    };
                     break;
 
                 case "registrer øvelse i gruppe":
 
                     List<String> grupper = selectQuery.getGrupper();
                     System.out.println("Følgende øvelsesgrupper er registrert i databasen: ");
-                    System.out.println(grupper);
+                    if(grupper!=null) {
+                        System.out.println(grupper);
+                    }else {
+                        System.out.println("Vi klarte ikke hente ut øvelsesgruppene.");
+                    }
+                    
                     String gruppeID = getInput("Oppgi gruppeID til gruppen du vil behandle: ");
-
-                    //String ovelse;
-                    //String ovelseID;
 
                     while (true){
 
                         ovelse = getInput("Oppgi en øvelse fra databasen som skal knyttes til gruppen, eller trykk <enter> for å gå videre: ").toLowerCase();
-                        if ((ovelse == "") || (ovelse == " "))
+                        if (ovelse.isEmpty()) {
                             break;
-
+                        }
                         ovelseID = selectQuery.getOvelseID(ovelse);
-                        inputQuery.RegistrerInngarI(ovelseID, gruppeID);
-                        System.out.println("Lagt til...\n");
+                        if (inputQuery.RegistrerInngarI(ovelseID, gruppeID)) {
+                            System.out.println("Øvelse ble registrert i gruppen.\n");
+                        } else {
+                            System.out.println("Øvelse ble ikke registrert i gruppen.\n");
+                        };
                     }
+                    break;
 
-                    System.out.println("Oppgave utført.\n");
-                    break;
-/*
-                case "registrer øvelse i økt":
-                    String okter = SelectQueries.getOkter();
-                    System.out.println("Følgende økter er registrert i databasen: ");
-                    System.out.println(okter);
-                    String oktID = getInput("Oppgi øktID til økten du vil behandle: ");
-                    String ovelse;
-                    Sring ovelseID;
-                    while (1){
-                        ovelse = getInput("Oppgi en øvelse fra databasen som ble utført, eller trykk <enter> for å gå videre: ").toLowerCase();
-                        if ((ovelse == '') || (ovelse == ' ')):
-                            break;
-                        ovelseID = SelectQueries.getOvelseID(ovelse);
-                        InputQueries.RegistrerOvelseIOkt(ovelseID, oktID);
-                        System.out.println("Lagt til...\n");
-                    }
-                    System.out.println("Oppgave utført.\n");
-                    break;
-*/
                 case "vis øvelsesgruppe":
-//                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
-//                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
-
                 	String gruppe = getInput("Hvilken gruppe vil du vise? ");
-                	String ovelser = selectQuery.getOvelserIGruppe(gruppe);
-                    System.out.println(ovelser);
-                    //DENNE MÅ LAGES
-                	break;
+                    gruppeID = selectQuery.getGruppeID(gruppe);
+                    List<String> ovelser = selectQuery.getOvelserIGruppe(gruppeID);
+                    if(ovelser!=null) {
+                        System.out.println(ovelser);
+                    }else {
+                        System.out.println("Vi klarte ikke hente ut øvelses.");
+                    }
+                   	break;
 
                 case "vis økter":
                 	String antall = getInput("Hvor mange? ");
-                    String okter = selectQuery.getSisteOkter(antall);
+                	List<String> okter = selectQuery.getSisteOkter(antall);
                     System.out.println(okter);
                     //DENNE MÅ LAGES
                 	break;
@@ -202,7 +194,7 @@ public class Main {
                     String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
                     String sluttDato = getInput("Oppgi intervallets sluttdato på formen YYYY-MM-DD: ");
 
-                    String resultat = selectQuery.getResultatLogg(startDato, sluttDato);
+                    List<String> resultat = selectQuery.getResultatLogg(startDato, sluttDato);
                     System.out.println("Følgende resultater er funnet:\n");
                     System.out.println(resultat);
                    	break;

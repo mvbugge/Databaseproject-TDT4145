@@ -70,7 +70,7 @@ public class SelectQueries {
 	}
 
 	public static List<String> getSisteOkter(String antall){
-		String query = "select * from ovelsesgruppe;";
+		String query = "select * from okt order by Dato DESC, Tidspunkt DESC LIMIT " + antall + ";";
 		return(dbmanager.requestDB(query));
 	}
 

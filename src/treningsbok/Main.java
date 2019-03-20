@@ -1,3 +1,5 @@
+package treningsbok;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.Properties;
@@ -6,8 +8,8 @@ import treningsbok.InputQueries;
 
 public class Main {
 	public static void main(String[] args) {
-        String userName = getInput("Oppgi database brukernavn: ");
-        String password = getInput("Oppgi database passord");
+        String userName = "root";
+        String password = "08121998";
 
         Properties p = new Properties();
 
@@ -16,15 +18,16 @@ public class Main {
 
         InputQueries inputQuery = new InputQueries(p);
         SelectQueries selectQuery = new SelectQueries(p);
-
+        
         String helloMsg =   "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"+
                             "Velkommen til din treningsdagbok!\n"+
                             "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 
         System.out.println(helloMsg);
-
+        
         String input; 
-        String inputMsg = "Hvilken operasjon Ã¸nsker du Ã¥ utfÃ¸re? Skriv [what] for oversikt over mulige operasjoner, eller [q] for Ã¥ avslutte.\n>>";
+        String inputMsg = "Hvilken operasjon ønsker du å utføre? Skriv [what] for oversikt over mulige operasjoner, eller [q] for å avslutte.\n>>";
+        
         boolean exitFlag = false;
         while (!exitFlag) {
 
@@ -34,79 +37,112 @@ public class Main {
 
                 case "q":
                     exitFlag = true;
+                    System.out.println("Adios Amigos!.\n");
                     break;
 
                 case "registrer apparat":
                 	String navn = getInput("Hva heter det nye apparatet? ").toLowerCase();
                 	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ");
 
-                    inputQuery.RegistrerApparat(navn, beskrivelse);
-                    System.out.println("Oppgave utfÃ¸rt.\n");
+                    if (inputQuery.RegistrerApparat(navn, beskrivelse)) {
+                        System.out.println("Apparat regstrert.\n");
+                    } else {
+                        System.out.println("Apparat ble ikke registrert.\n");
+                    };
                     break;
 
-                case "registrer Ã¸velse":
-                    navn = getInput("Hva heter den nye Ã¸velsen? ").toLowerCase();
-                    beskrivelse = getInput("Gi en beskrivelse av den nye Ã¸velsen: ");
+                case "registrer øvelse":
+                    navn = getInput("Hva heter den nye øvelsen? ").toLowerCase();
+                    if (inputQuery.RegistrerOvelse(navn)) {
+                        System.out.println("Øvelse registrert.\n");
+                        
+                        String ovelseId = selectQuery.getOvelseID(navn);
 
-                    String type = getInput("Er det en friÃ¸velse eller en apparatÃ¸velse?\n"+
-                                           "Skriv 'f' for friÃ¸velse eller 'a' for apparatÃ¸velse: ").toLowerCase();
-                    if (type == "f"){
-                        inputQuery.RegistrerFriovelse(navn, beskrivelse);
-                        System.out.println("Oppgave utfÃ¸rt.\n");
+                        String type = getInput("Er det en friøvelse eller en apparatøvelse?\n"+
+                                               "Skriv 'f' for friøvelse eller 'a' for apparatøvelse: ").toLowerCase();
 
-                    }
-                    else{
-                        String kilo = getInput("Hvor mange kilo brukes i Ã¸velsen?: ");
-                        String sett = getInput("Hvor mange sett gjÃ¸res i Ã¸velsen?: ");
-                        String apparat = getInput("Hvilket eksisterende apparat brukes til Ã¸velsen?: ").toLowerCase();
-                        String apparatID = selectQuery.getApparatID(apparat);
+                        if (type.equals("f")){
+                            beskrivelse = getInput("Gi en beskrivelse av den nye øvelsen: ");
+                            
+                            if (inputQuery.RegistrerFriovelse(ovelseId, beskrivelse)) {
+                                System.out.println("Øvelse registrert som friøvelse.\n");
+                            } else {
+                                System.out.println("Øvelse ble ikke registrert som friøvelse og blir derfor slettet fra øvelser.\n");
+                                inputQuery.DeleteOvelse(ovelseId);
+                            };
+                            
+                        }
+                        if(type.equals("a")){
+                            String kilo = getInput("Hvor mange kilo brukes i øvelsen?: ");
+                            String sett = getInput("Hvor mange sett gjøres i øvelsen?: ");
+                            String apparat = getInput("Hvilket eksisterende apparat brukes til øvelsen)?: ").toLowerCase();
+                            System.out.println("Henter ut id...\n");
 
-                        inputQuery.RegistrerApparatovelse(navn, beskrivelse, kilo, sett, apparatID);
-                        System.out.println("Oppgave utfÃ¸rt.\n");
-                    }
+                            String apparatID = selectQuery.getApparatID(apparat);
+
+                            if (inputQuery.RegistrerApparatovelse(ovelseId, kilo, sett, apparatID)) {
+                                System.out.println("Øvelse registrert som apparatovelse.\n");
+                            } else {
+                                System.out.println("Øvelse ble ikke registrert som apparatøvelse og blir derfor slettet fra øvelser.\n");
+                                inputQuery.DeleteOvelse(ovelseId);
+                            };
+                        }
+                        
+                    } else {
+                        System.out.println("Øvelse ble ikke registrert.\n");
+                    };
                 	break;
 
-                case "registrer Ã¸kt":
-                    String dato = getInput("Oppgi dato pÃ¥ formen YYYY-MM-DD, f. eks. '2019-03-21': ");
-                    String tidspunkt = getInput("Oppgi starttidspunkt pÃ¥ formen hh:mm:ss, f. eks. '23:59:59': ");
-                    String varighet = getInput("Oppgi varighet pÃ¥ Ã¸kten pÃ¥ formen hh:mm:ss, f. eks. '01:30:00': ");
-                    String prestasjon = getInput("Oppgi din prestasjon under Ã¸kten, et heltall mellom 1 og 10: ");
-                    String form = getInput("Oppgi din form under Ã¸kten, et heltall mellom 1 og 10: ");
+                case "registrer økt":
+                    String dato = getInput("Oppgi dato på formen YYYY-MM-DD, f. eks. '2019-03-21': ");
+                    String tidspunkt = getInput("Oppgi starttidspunkt på formen hh:mm:ss, f. eks. '23:59:59': ");
+                    String varighet = getInput("Oppgi varighet på økten på formen hh:mm:ss, f. eks. '01:30:00': ");
+                    String prestasjon = getInput("Oppgi din prestasjon under økten, et heltall mellom 1 og 10: ");
+                    String form = getInput("Oppgi din form under økten, et heltall mellom 1 og 10: ");
 
-                    inputQuery.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form);
-
-                    //Legg til Ã¸velser i Ã¸kt
+                    if (inputQuery.RegistrerOkt(dato, tidspunkt, varighet, prestasjon, form)) {
+                        System.out.println("Økt registrert.\n");
+                    } else {
+                        System.out.println("Økt ble ikke registrert.\n");
+                    };
+                    
                     String ovelse;
                     String ovelseID;
                     String oktID = selectQuery.getOktID(dato, tidspunkt);
 
                     while (true){
 
-                        ovelse = getInput("Oppgi en eksisterende Ã¸velse fra databasen for Ã¥ knytte den til Ã¸kten, eller trykk <enter> for Ã¥ gÃ¥ videre: ").toLowerCase();
-                        if ((ovelse == "") || (ovelse == " "))
+                        ovelse = getInput("Oppgi navn på en eksisterende øvelse i databasen for å knytte den til økten, eller trykk <enter> for å gå videre: ").toLowerCase();
+                        if (ovelse.isEmpty())
                             break;
 
                         ovelseID = selectQuery.getOvelseID(ovelse);
-                        inputQuery.RegistrerOvelseIOkt(ovelseID, oktID);
-                        System.out.println("Lagt til...\n");
+                        if (inputQuery.RegistrerOvelseIOkt(ovelseID, oktID)) {
+                            System.out.println("Øvelse lagt til.\n");
+                        } else {
+                            System.out.println("Øvelse ble ikke lagt til.\n");
+                        };
                     }
-                    String notat = getInput("Legg til notat til Ã¸kten eller trykk <enter>: ");
-                    if (notat != ""){
-                        inputQuery.RegistrerNotat(oktID, notat);
+                    String notat = getInput("Legg til notat til økten eller trykk <enter>: ");
+                    if (!notat.isEmpty()){
+                        if (inputQuery.RegistrerNotat(oktID, notat)) {
+                            System.out.println("Notat lagt til.\n");
+                        } else {
+                            System.out.println("Notat ble ikke lagt til.\n");
+                        };
                     }
-                    System.out.println("Oppgave utfÃ¸rt.\n");
                 	break;
 
-                case "registrer Ã¸velsesgruppe":
-                    navn = getInput("Hva heter den nye Ã¸velsesgruppen?: ");
+                case "registrer øvelsesgruppe":
+                    navn = getInput("Hva heter den nye øvelsesgruppen?: ");
                 	inputQuery.RegistrerGruppe(navn);
-                    System.out.println("Oppgave utfÃ¸rt.\n");
+                    System.out.println("Oppgave utført.\n");
                     break;
 
-                case "registrer Ã¸velse i gruppe":
+                case "registrer øvelse i gruppe":
 
                     List<String> grupper = selectQuery.getGrupper();
-                    System.out.println("FÃ¸lgende Ã¸velsesgrupper er registrert i databasen: ");
+                    System.out.println("Følgende øvelsesgrupper er registrert i databasen: ");
                     System.out.println(grupper);
                     String gruppeID = getInput("Oppgi gruppeID til gruppen du vil behandle: ");
 
@@ -115,7 +151,7 @@ public class Main {
 
                     while (true){
 
-                        ovelse = getInput("Oppgi en Ã¸velse fra databasen som skal knyttes til gruppen, eller trykk <enter> for Ã¥ gÃ¥ videre: ").toLowerCase();
+                        ovelse = getInput("Oppgi en øvelse fra databasen som skal knyttes til gruppen, eller trykk <enter> for å gå videre: ").toLowerCase();
                         if ((ovelse == "") || (ovelse == " "))
                             break;
 
@@ -124,77 +160,73 @@ public class Main {
                         System.out.println("Lagt til...\n");
                     }
 
-                    System.out.println("Oppgave utfÃ¸rt.\n");
+                    System.out.println("Oppgave utført.\n");
                     break;
 /*
-                case "registrer Ã¸velse i Ã¸kt":
+                case "registrer øvelse i økt":
                     String okter = SelectQueries.getOkter();
-                    System.out.println("FÃ¸lgende Ã¸kter er registrert i databasen: ");
+                    System.out.println("Følgende økter er registrert i databasen: ");
                     System.out.println(okter);
-                    String oktID = getInput("Oppgi Ã¸ktID til Ã¸kten du vil behandle: ");
-
+                    String oktID = getInput("Oppgi øktID til økten du vil behandle: ");
                     String ovelse;
                     Sring ovelseID;
-
                     while (1){
-
-                        ovelse = getInput("Oppgi en Ã¸velse fra databasen som ble utfÃ¸rt, eller trykk <enter> for Ã¥ gÃ¥ videre: ").toLowerCase();
+                        ovelse = getInput("Oppgi en øvelse fra databasen som ble utført, eller trykk <enter> for å gå videre: ").toLowerCase();
                         if ((ovelse == '') || (ovelse == ' ')):
                             break;
-
                         ovelseID = SelectQueries.getOvelseID(ovelse);
                         InputQueries.RegistrerOvelseIOkt(ovelseID, oktID);
                         System.out.println("Lagt til...\n");
                     }
-                    System.out.println("Oppgave utfÃ¸rt.\n");
+                    System.out.println("Oppgave utført.\n");
                     break;
 */
-                case "vis Ã¸velsesgruppe":
+                case "vis øvelsesgruppe":
 //                	String alleOvelsesGrupper = InputQueries.VisAlleOvelsesgrupper();
-//                	System.out.println("FÃ¸lgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
+//                	System.out.println("Følgende grupper finnes i systemet:\n"+alleOvelsesGrupper);
 
                 	String gruppe = getInput("Hvilken gruppe vil du vise? ");
                 	String ovelser = selectQuery.getOvelserIGruppe(gruppe);
                     System.out.println(ovelser);
-                    //DENNE MÃ… LAGES
+                    //DENNE MÅ LAGES
                 	break;
 
-                case "vis Ã¸kter":
+                case "vis økter":
                 	String antall = getInput("Hvor mange? ");
                     String okter = selectQuery.getSisteOkter(antall);
                     System.out.println(okter);
-                    //DENNE MÃ… LAGES
+                    //DENNE MÅ LAGES
                 	break;
 
                 case "vis resultatlogg":
-                    String startDato = getInput("Oppgi intervallets startdato pÃ¥ formen YYYY-MM-DD: ");
-                    String sluttDato = getInput("Oppgi intervallets sluttdato pÃ¥ formen YYYY-MM-DD: ");
+                    String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
+                    String sluttDato = getInput("Oppgi intervallets sluttdato på formen YYYY-MM-DD: ");
 
                     String resultat = selectQuery.getResultatLogg(startDato, sluttDato);
-                    System.out.println("FÃ¸lgende resultater er funnet:\n");
+                    System.out.println("Følgende resultater er funnet:\n");
                     System.out.println(resultat);
                    	break;
 
-                case "vis uprÃ¸vde":
+                case "vis uprøvde":
                     ovelser = selectQuery.getUprovde();
-                    System.out.println("FÃ¸lgende Ã¸velser er uprÃ¸vde:\n");
+                    System.out.println("Følgende øvelser er uprøvde:\n");
                     System.out.println(ovelser);
                 	break;
 
                 case "what":
                     System.out.println(
-                    	"FÃ¸lgende gyldige input finnes (oppgi kommando uten 'fnutter'):\n" +
+                    	"Følgende gyldige input finnes (oppgi kommando uten 'fnutter'):\n" +
 
-                        "'registrer apparat'         Lar deg registrere nytt apparat med tilhÃ¸rende data\n" +
-                        "'registrer Ã¸velse'          Lar deg registrere ny Ã¸velse med tilhÃ¸rende data\n" +
-                        "'registrer Ã¸kt'             Lar deg registrere ny Ã¸kt med tilhÃ¸rende data\n" +
-                        "'registrer Ã¸velsesgruppe'   Lar deg registrere ny Ã¸velsesgruppe med tilhÃ¸rende data\n" +
-                        "'registrer Ã¸velse i gruppe' Lar deg knytte eksisterende Ã¸velser til en eksisterende Ã¸velsesgruppe"+
- //                     "'registrer Ã¸velse i Ã¸kt'    Lar deg knytte eksisterende Ã¸velser til en eksisterende Ã¸kt\n" +
-                        "'vis Ã¸velsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsÃ¸velser\n" +
-                        "'vis Ã¸kter'                 Lar deg spesifisere et antall siste gjennomfÃ¸rte Ã¸kter for visning\n" +
-                        "'vis resultatlogg'          Lar deg spesifisere Ã¸velse og tidsintervall, og gir tilhÃ¸rende resultatlogg\n" +
-                        "'vis uprÃ¸vde'               Gir deg en oversikt over registrerte Ã¸velser som ennÃ¥ ikke har blit registrert i en Ã¸kt\n\n" +
+                        "'registrer apparat'         Lar deg registrere nytt apparat med tilhørende data\n" +
+                        "'registrer øvelse'          Lar deg registrere ny øvelse med tilhørende data\n" +
+                        "'registrer økt'             Lar deg registrere ny økt med tilhørende data\n" +
+                        "'registrer øvelsesgruppe'   Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
+                        "'registrer øvelse i gruppe' Lar deg knytte eksisterende øvelser til en eksisterende øvelsesgruppe\n"+
+ //                     "'registrer øvelse i økt'    Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
+                        "'vis øvelsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
+                        "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
+                        "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
+                        "'vis uprøvde'               Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n" +
                         "'q'                         Avslutt"
                         );
 

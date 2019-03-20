@@ -132,10 +132,7 @@ public class Main {
                         };
                     }
                 	break;
-/*
-                case "registrer øvelse i økt":
-                    break;
-*/          	
+          	
                 case "registrer øvelsesgruppe":
                     navn = getInput("Hva heter den nye øvelsesgruppen?: ");
                     if (inputQuery.RegistrerGruppe(navn)) {
@@ -218,7 +215,6 @@ public class Main {
                         "'registrer økt'             Lar deg registrere ny økt med tilhørende data\n" +
                         "'registrer øvelsesgruppe'   Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
                         "'registrer øvelse i gruppe' Lar deg knytte eksisterende øvelser til en eksisterende øvelsesgruppe\n"+
- //                     "'registrer øvelse i økt'    Lar deg knytte eksisterende øvelser til en eksisterende økt\n" +
                         "'vis øvelsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
                         "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
                         "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +

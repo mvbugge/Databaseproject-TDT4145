@@ -91,7 +91,7 @@ public class SelectQueries {
 	}
 	
 	public static List<String> getUprovde(){
-		String query = "select * from ovelsesgruppe;";
+		String query = "select navn from ovelse where ovelseid not in (select ovelseid from ovelseiokt);";
 		return(dbmanager.requestDB(query));
 	}
 } 

@@ -187,14 +187,18 @@ public class Main {
                 	String antall = getInput("Hvor mange? ");
                 	List<String> okter = selectQuery.getSisteOkter(antall);
                     System.out.println(okter);
-                    //DENNE MÅ LAGES
                 	break;
 
                 case "vis resultatlogg":
                     String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
                     String sluttDato = getInput("Oppgi intervallets sluttdato på formen YYYY-MM-DD: ");
+                    navn = getInput("Oppgi navn på øvelsen du ønsker å sjekke loggen til: ");
 
-                    List<String> resultat = selectQuery.getResultatLogg(startDato, sluttDato);
+                	List<String> resultat = selectQuery.getResultatLoggFriovelse(startDato, sluttDato, navn);
+                	if (resultat.isEmpty()) {
+                        resultat = selectQuery.getResultatLoggApparatovelse(startDato, sluttDato, navn);
+                	}
+                	
                     System.out.println("Følgende resultater er funnet:\n");
                     System.out.println(resultat);
                    	break;

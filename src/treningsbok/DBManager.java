@@ -46,7 +46,7 @@ public class DBManager {
             }
             return array;
         } catch (Exception e) {
-            System.out.println("Error sending request to DB");
+            //System.out.println("Error sending request to DB");
             return null;
         }
         
@@ -63,7 +63,7 @@ public class DBManager {
             
             return id;
         } catch (Exception e) {
-            System.out.println("Error sending ID request to DB");
+            //System.out.println("Error sending ID request to DB");
             return "";
         }
         
@@ -76,7 +76,7 @@ public class DBManager {
             stmt.executeUpdate(sqlQuery);
             return true;
         } catch (Exception e) {
-            System.out.println("Error sending to DB");
+            //System.out.println("Error sending to DB");
             return false;
         }
     }

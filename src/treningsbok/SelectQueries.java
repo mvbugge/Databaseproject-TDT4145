@@ -74,11 +74,22 @@ public class SelectQueries {
 		return(dbmanager.requestDB(query));
 	}
 
-	public static List<String> getResultatLogg(String startDato, String sluttDato){
-		String query = "select * from ovelsesgruppe;";
+	public static List<String> getResultatLoggFriovelse(String startDato, String sluttDato, String navn){
+		String query = "select Navn, Prestasjon, Form from okt join ovelseiokt on "
+				+ "ovelseiokt.oktid = okt.oktid join ovelse on ovelseiokt.ovelseid = ovelse.ovelseid join "
+				+ "friovelse on friovelse.ovelseid = ovelse.ovelseid where navn = '"
+				+ "jogging" + "' and Dato >= '" + startDato	+ "' and Dato <= '" + sluttDato + "';";
 		return(dbmanager.requestDB(query));
 	}
 
+	public static List<String> getResultatLoggApparatovelse(String startDato, String sluttDato, String navn){
+		String query = "select Navn, Prestasjon, Form, AntallKilo, AntallSett from okt join ovelseiokt on "
+				+ "ovelseiokt.oktid = okt.oktid join ovelse on ovelseiokt.ovelseid = ovelse.ovelseid join "
+				+ "apparatovelse on apparatovelse.ovelseid = ovelse.ovelseid where navn = '"
+				+ "jogging" + "' and Dato >= '" + startDato	+ "' and Dato <= '" + sluttDato + "';";
+		return(dbmanager.requestDB(query));
+	}
+	
 	public static List<String> getUprovde(){
 		String query = "select * from ovelsesgruppe;";
 		return(dbmanager.requestDB(query));

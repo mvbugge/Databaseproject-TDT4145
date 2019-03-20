@@ -33,19 +33,19 @@ public class SelectQueries {
 
 	public static String getApparatID(String navn){
 		String query = "select ApparatID from apparat where navn='" + navn + "';";
-		List<String> ids = dbmanager.requestDB(query);
-		return(ids.get(0));
+		String ids = dbmanager.requestID(query);
+		return(ids);
 	}
 	public static String getOvelseID(String navn){
 		String query = "select OvelseID from ovelse where navn='" + navn + "';";
-		List<String> ids = dbmanager.requestDB(query);
-		return(ids.get(0));
+		String ids = dbmanager.requestID(query);
+		return(ids);
 	}
 
 	public static String getOktID(String dato, String tidspunkt){
 		String query = "select OktID from okt where dato='" + dato + "' and tidspunkt='" + tidspunkt + "';";
-		List<String> ids = dbmanager.requestDB(query);
-		return(ids.get(0));
+		String ids = dbmanager.requestID(query);
+		return(ids);
 	}
 
 	public static List<String> getOkter() {

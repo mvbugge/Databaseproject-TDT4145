@@ -17,7 +17,7 @@ public class DBManager {
     
     public void connect() {
     	try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/treningsbok?autoReconnect=true&useSSL=false",p);
         } catch (Exception e)
     	{
@@ -52,13 +52,32 @@ public class DBManager {
         
     }
     
-    public void sendDB(String sqlQuery) {
+    public static String requestID(String sqlQuery) {
+    	try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            rs.next();
+            String id = rs.getString(1);
+            
+            return id;
+        } catch (Exception e) {
+            System.out.println("Error sending ID request to DB");
+            return "";
+        }
+        
+    }
+    
+    
+    public boolean sendDB(String sqlQuery) {
     	try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sqlQuery);
+            return true;
         } catch (Exception e) {
             System.out.println("Error sending to DB");
-            return;
+            return false;
         }
     }
     

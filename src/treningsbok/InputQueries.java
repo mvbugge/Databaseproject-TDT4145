@@ -11,45 +11,54 @@ public class InputQueries {
 		dbmanager.connect();
 		};
 		
-	public static void RegistrerApparat(String navn, String beskrivelse) {
+	public static boolean RegistrerApparat(String navn, String beskrivelse) {
 		String query = "insert into apparat (ApparatID, Navn, Beskrivelse) values("
 				+ "NULL, '" + navn + "', '" + beskrivelse + "');";
-		dbmanager.sendDB(query);
+		return dbmanager.sendDB(query);
 	}
-	public static void RegistrerFriovelse(String navn, String beskrivelse) {
-		String query = "insert into friovelse (OvelseID, Navn) values("
-				+ "NULL, '" + navn + "', '" + beskrivelse + "');";
-		dbmanager.sendDB(query);
+	public static boolean RegistrerOvelse(String navn) {
+		String query = "insert into ovelse (Navn) values('"
+				+ navn + "');";
+		return dbmanager.sendDB(query);
 	}
-	public static void RegistrerApparatovelse(String navn, String beskrivelse, String kilo, String sett, String apparatID) {
-		String query = "insert into apparatovelse (OvelseID, Navn, Beskrivelse, AntallKilo, AntallSett, ApparatID)"
-				+ " values(" + "NULL, '" + navn + "', '" + beskrivelse + "', '" + kilo + "', '" + sett + "', '"
-				+ apparatID + "'');";
-		dbmanager.sendDB(query);
+	
+	public static boolean DeleteOvelse(String ovelseID) {
+		String query = "delete from ovelse where OvelseID = " + ovelseID + ";";
+		return dbmanager.sendDB(query);		
 	}
-	public static void RegistrerOkt(String dato, String tidspunkt, String varighet,
+	public static boolean RegistrerFriovelse(String ovelseId, String beskrivelse) {
+		String query = "insert into friovelse (OvelseID, Beskrivelse) values("
+				+ ovelseId + ", '" + beskrivelse + "');";
+		return dbmanager.sendDB(query);
+	}
+	public static boolean RegistrerApparatovelse(String ovelseId, String kilo, String sett, String apparatID) {
+		String query = "insert into apparatovelse (OvelseID, AntallKilo, AntallSett, ApparatID) values("
+				+ ovelseId +", " + kilo + ", " + sett + ", " + apparatID + ");";
+		return dbmanager.sendDB(query);
+	}
+	public static boolean RegistrerOkt(String dato, String tidspunkt, String varighet,
 			String prestasjon, String form) {
 		String query = "insert into okt (OktID, Dato, Tidspunkt, Varighet, Prestasjon, Form) "
 				+ "values(" + "NULL, '" + dato + "', '" + tidspunkt + "', '" + varighet + "', '" +
 				prestasjon + "', '" + form + "');";
-		dbmanager.sendDB(query);
+		return dbmanager.sendDB(query);
 	}
-	public static void RegistrerNotat(String oktID, String beskrivelse) {
+	public static boolean RegistrerNotat(String oktID, String beskrivelse) {
 		String query = "insert into notat (OktID, Treningsformal) values(" 
 				+ oktID + ", '" + beskrivelse + "');";
-		dbmanager.sendDB(query);
+		return dbmanager.sendDB(query);
 	}
-	public static void RegistrerGruppe(String navn) {
+	public static boolean RegistrerGruppe(String navn) {
 		String query = "insert into ovelsesgruppe(GruppeID, Navn) values(" 
 				+ "NULL, '" + navn + "');";
-		dbmanager.sendDB(query);
+		return dbmanager.sendDB(query);
 	}
-	public static void RegistrerOvelseIOkt(String ovelseID, String oktID) {
+	public static boolean RegistrerOvelseIOkt(String ovelseID, String oktID) {
 		String query = "insert into ovelseiokt values(" + ovelseID + ", " + oktID + ");";
-		dbmanager.sendDB(query);
+		return dbmanager.sendDB(query);
 	}
-	public static void RegistrerInngarI(String ovelseID, String gruppeID) {
+	public static boolean RegistrerInngarI(String ovelseID, String gruppeID) {
 		String query = "insert into inngari values(" + ovelseID + ", " + gruppeID + ");";
-		dbmanager.sendDB(query);
+		return dbmanager.sendDB(query);
 	}
 }

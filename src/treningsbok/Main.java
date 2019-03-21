@@ -8,8 +8,8 @@ import treningsbok.InputQueries;
 
 public class Main {
 	public static void main(String[] args) {
-        String userName = "root";
-        String password = "08121998";
+        String userName = getInput("Database username: ");
+        String password = getInput("Database password: ");
 
         Properties p = new Properties();
 
@@ -40,7 +40,7 @@ public class Main {
                     System.out.println("Adios Amigos!.\n");
                     break;
 
-                case "registrer apparat":
+                case "regapp":
                 	String navn = getInput("Hva heter det nye apparatet? ").toLowerCase();
                 	String beskrivelse = getInput("Gi en beskrivelse av det nye apparatet: ");
 
@@ -51,7 +51,7 @@ public class Main {
                     };
                     break;
 
-                case "registrer øvelse":
+                case "regov":
                     navn = getInput("Hva heter den nye øvelsen? ").toLowerCase();
                     if (inputQuery.RegistrerOvelse(navn)) {
                         System.out.println("Øvelse registrert.\n");
@@ -93,7 +93,7 @@ public class Main {
                     };
                 	break;
 
-                case "registrer økt":
+                case "regokt":
                     String dato = getInput("Oppgi dato på formen YYYY-MM-DD, f. eks. '2019-03-21': ");
                     String tidspunkt = getInput("Oppgi starttidspunkt på formen hh:mm:ss, f. eks. '23:59:59': ");
                     String varighet = getInput("Oppgi varighet på økten på formen hh:mm:ss, f. eks. '01:30:00': ");
@@ -133,7 +133,7 @@ public class Main {
                     }
                 	break;
           	
-                case "registrer øvelsesgruppe":
+                case "regovgr":
                     navn = getInput("Hva heter den nye øvelsesgruppen?: ");
                     if (inputQuery.RegistrerGruppe(navn)) {
                         System.out.println("Øvelsegruppe ble registrert.\n");
@@ -142,7 +142,7 @@ public class Main {
                     };
                     break;
 
-                case "registrer øvelse i gruppe":
+                case "regovigr":
 
                     List<String> grupper = selectQuery.getGrupper();
                     System.out.println("Følgende øvelsesgrupper er registrert i databasen: ");
@@ -169,7 +169,7 @@ public class Main {
                     }
                     break;
 
-                case "vis øvelsesgruppe":
+                case "visovgr":
                 	String gruppe = getInput("Hvilken gruppe vil du vise? ");
                     gruppeID = selectQuery.getGruppeID(gruppe);
                     List<String> ovelser = selectQuery.getOvelserIGruppe(gruppeID);
@@ -180,13 +180,13 @@ public class Main {
                     }
                    	break;
 
-                case "vis økter":
+                case "visokter":
                 	String antall = getInput("Hvor mange? ");
                 	List<String> okter = selectQuery.getSisteOkter(antall);
                     System.out.println(okter);
                 	break;
 
-                case "vis resultatlogg":
+                case "visreslogg":
                     String startDato = getInput("Oppgi intervallets startdato på formen YYYY-MM-DD: ");
                     String sluttDato = getInput("Oppgi intervallets sluttdato på formen YYYY-MM-DD: ");
                     navn = getInput("Oppgi navn på øvelsen du ønsker å sjekke loggen til: ");
@@ -200,7 +200,7 @@ public class Main {
                     System.out.println(resultat);
                    	break;
 
-                case "vis uprøvde":
+                case "visuprovde":
                     ovelser = selectQuery.getUprovde();
                     System.out.println("Følgende øvelser er uprøvde:\n");
                     System.out.println(ovelser);
@@ -210,15 +210,15 @@ public class Main {
                     System.out.println(
                     	"Følgende gyldige input finnes (oppgi kommando uten 'fnutter'):\n" +
 
-                        "'registrer apparat'         Lar deg registrere nytt apparat med tilhørende data\n" +
-                        "'registrer øvelse'          Lar deg registrere ny øvelse med tilhørende data\n" +
-                        "'registrer økt'             Lar deg registrere ny økt med tilhørende data\n" +
-                        "'registrer øvelsesgruppe'   Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
-                        "'registrer øvelse i gruppe' Lar deg knytte eksisterende øvelser til en eksisterende øvelsesgruppe\n"+
-                        "'vis øvelsesgruppe'         Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
-                        "'vis økter'                 Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
-                        "'vis resultatlogg'          Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
-                        "'vis uprøvde'               Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n" +
+                        "'regapp'                    Lar deg registrere nytt apparat med tilhørende data\n" +
+                        "'regov'                     Lar deg registrere ny øvelse med tilhørende data\n" +
+                        "'regokt'                    Lar deg registrere ny økt med tilhørende data\n" +
+                        "'regovgr'                   Lar deg registrere ny øvelsesgruppe med tilhørende data\n" +
+                        "'regovigr'                  Lar deg knytte eksisterende øvelser til en eksisterende øvelsesgruppe\n"+
+                        "'visovgr'                   Lar deg spesifisere en gruppe og viser medlemsøvelser\n" +
+                        "'visokter'                  Lar deg spesifisere et antall siste gjennomførte økter for visning\n" +
+                        "'visreslogg'                Lar deg spesifisere øvelse og tidsintervall, og gir tilhørende resultatlogg\n" +
+                        "'visuprovde'                Gir deg en oversikt over registrerte øvelser som ennå ikke har blit registrert i en økt\n\n" +
                         "'q'                         Avslutt"
                         );
 

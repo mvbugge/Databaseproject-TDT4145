@@ -17,8 +17,13 @@ public class DBManager {
     
     public void connect() {
     	try {
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/treningsbok?autoReconnect=true&useSSL=false",p);
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/treningsbok?autoReconnect=true&useSSL=false",p);
+            } catch (Exception e) {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/treningsbok?autoReconnect=true&useSSL=false",p);
+            }
         } catch (Exception e)
     	{
         	e.printStackTrace();

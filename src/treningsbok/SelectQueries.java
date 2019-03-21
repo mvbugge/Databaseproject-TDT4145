@@ -70,15 +70,16 @@ public class SelectQueries {
 	}
 
 	public static List<String> getSisteOkter(String antall){
-		String query = "select * from okt order by Dato DESC, Tidspunkt DESC LIMIT " + antall + ";";
+		String query = "select Dato, Tidspunkt, Varighet, Prestasjon, Form, Treningsformal" + 
+		" from okt join notat on okt.oktid = notat.oktid order by Dato DESC, Tidspunkt DESC LIMIT " + antall + ";";
 		return(dbmanager.requestDB(query));
 	}
 
 	public static List<String> getResultatLoggFriovelse(String startDato, String sluttDato, String navn){
-		String query = "select Navn, Prestasjon, Form from okt join ovelseiokt on "
+		String query = "select Navn, Prestasjon, Form, Dato from okt join ovelseiokt on "
 				+ "ovelseiokt.oktid = okt.oktid join ovelse on ovelseiokt.ovelseid = ovelse.ovelseid join "
 				+ "friovelse on friovelse.ovelseid = ovelse.ovelseid where navn = '"
-				+ "jogging" + "' and Dato >= '" + startDato	+ "' and Dato <= '" + sluttDato + "';";
+				+ navn + "' and Dato >= '" + startDato	+ "' and Dato <= '" + sluttDato + "';";
 		return(dbmanager.requestDB(query));
 	}
 
@@ -86,7 +87,7 @@ public class SelectQueries {
 		String query = "select Navn, Prestasjon, Form, AntallKilo, AntallSett from okt join ovelseiokt on "
 				+ "ovelseiokt.oktid = okt.oktid join ovelse on ovelseiokt.ovelseid = ovelse.ovelseid join "
 				+ "apparatovelse on apparatovelse.ovelseid = ovelse.ovelseid where navn = '"
-				+ "jogging" + "' and Dato >= '" + startDato	+ "' and Dato <= '" + sluttDato + "';";
+				+ navn + "' and Dato >= '" + startDato	+ "' and Dato <= '" + sluttDato + "';";
 		return(dbmanager.requestDB(query));
 	}
 	
